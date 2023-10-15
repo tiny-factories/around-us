@@ -1,11 +1,12 @@
 {
-  "name": "gbif-mapbox-app",
+  "name": "around-us-earth",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
