@@ -75,14 +75,24 @@ const IndexPage = () => {
   return (
     <div style={{ display: "flex", width: "100%", height: "100vh" }}>
       <div
+        className="rounded border "
         style={{ flex: "1 1 33%", display: "flex", flexDirection: "column" }}
       >
+        <div className="">
+          <div className="text-lg font-bold">Around Us</div>
+
+          <div className="">Blub</div>
+        </div>
         {!locationFetched && (
-          <LocationButton onLocationUpdate={handleLocationRequest} />
+          <>
+            <LocationButton onLocationUpdate={handleLocationRequest} />
+          </>
         )}
 
         {locationFetched && (
           <>
+            <div className="text-lg font-bold">Results</div>
+
             {results.map((result, index) => (
               <div key={index}>
                 <div>{result.genericName}</div>

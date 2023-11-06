@@ -1,14 +1,20 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+
+const MapUpdater = ({ data }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    // Update the map's center to the new location
+    map.flyTo([data.latitude, data.longitude]);
+  }, [data, map]);
+
+  return null; // Component does not render anything
+};
 
 const MapComponent = ({ data, overlayContent }) => {
   const position = [data.latitude, data.longitude];
-
-  // The OverlayComponent is a functional component that will render the overlayContent prop
-  const OverlayComponent = () => {
-    return <>{overlayContent}</>; // This returns the overlayContent JSX as provided by the parent
-  };
 
   return (
     <MapContainer
@@ -26,7 +32,8 @@ const MapComponent = ({ data, overlayContent }) => {
           Longitude: {data.longitude.toFixed(2)}
         </Popup>
       </Marker>
-      <OverlayComponent />
+      <MapUpdater data={data} />
+      {overlayContent}
     </MapContainer>
   );
 };
