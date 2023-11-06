@@ -5,10 +5,14 @@ const LocationButton = ({ onLocationUpdate }) => {
       return;
     }
 
+    console.log("Requesting current location...");
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
+
+        console.log(`Location retrieved: Latitude: ${lat}, Longitude: ${long}`);
 
         // Update the location data in the parent component
         onLocationUpdate({
@@ -18,6 +22,11 @@ const LocationButton = ({ onLocationUpdate }) => {
       },
       (error) => {
         console.error("Error retrieving location: ", error);
+      },
+      {
+        maximumAge: 60000,
+        timeout: 5000,
+        enableHighAccuracy: true,
       }
     );
   };
