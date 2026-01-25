@@ -20,7 +20,7 @@ export function FiltersPanel({
   taxonCounts,
 }: FiltersPanelProps) {
   return (
-    <div className="absolute bottom-4 left-4 z-50 bg-white border border-black p-4 pointer-events-auto w-[244px]">
+    <div className="absolute bottom-4 left-4 z-50 bg-white border border-black p-4 pointer-events-auto w-[244px] rounded-lg shadow-sm">
       <div className="space-y-3">
         {/* Season Filter */}
         <div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Coordinates, Observation, Species, ICONIC_TAXON_EMOJI, IconicTaxon } from '@/lib/types';
+import { Coordinates, Observation, Species, ICONIC_TAXON_EMOJI, ICONIC_TAXON_COLORS, IconicTaxon } from '@/lib/types';
 import Image from 'next/image';
 
 interface MapComponentProps {
@@ -12,15 +12,7 @@ interface MapComponentProps {
   onObservationClick?: (observation: Observation) => void;
   onObservationHover?: (observation: Observation | null) => void;
   hoveredObservationId?: number | null;
-}
-
-interface MapComponentProps {
-  center: Coordinates;
-  observations: Observation[];
-  focusedSpeciesId?: number | null;
-  onObservationClick?: (observation: Observation) => void;
-  onObservationHover?: (observation: Observation | null) => void;
-  hoveredObservationId?: number | null;
+  onMapMove?: (center: Coordinates) => void;
 }
 
 export function ObservationMap({ 
@@ -30,7 +22,8 @@ export function ObservationMap({
   focusedSpeciesId,
   onObservationClick,
   onObservationHover,
-  hoveredObservationId 
+  hoveredObservationId,
+  onMapMove
 }: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,10 +33,7 @@ export function ObservationMap({
   const hoverCardRef = useRef<HTMLDivElement>(null);
   const [hoveredObservation, setHoveredObservation] = useState<Observation | null>(null);
   const [hoverPosition, setHoverPosition] = useState<{ x: number; y: number } | null>(null);
-  // Store original positions for cluster spreading
-  const originalPositionsRef = useRef<Map<number, L.LatLng>>(new Map());
-  const observationMapRef = useRef<Map<L.CircleMarker, Observation>>(new Map());
-  const spreadMarkersRef = useRef<Set<L.CircleMarker>>(new Set());
+  const [tooltipPosition, setTooltipPosition] = useState<{ left: number; top: number } | null>(null);
 
   // Initialize map (only once)
   useEffect(() => {
@@ -93,6 +83,8 @@ export function ObservationMap({
 
   // Track previous center to detect when user location is found
   const previousCenterRef = useRef<Coordinates | null>(null);
+  const isProgrammaticMoveRef = useRef<boolean>(false);
+  const moveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Update map center when center changes (smooth pan to user location)
   useEffect(() => {
@@ -109,15 +101,59 @@ export function ObservationMap({
       const hasChanged = prevCenter.lat !== center.lat || prevCenter.lng !== center.lng;
       
       if (hasChanged) {
+        // Mark this as a programmatic move so we don't trigger onMapMove callback
+        isProgrammaticMoveRef.current = true;
+        
         // Smoothly pan to the new location
         mapInstanceRef.current.flyTo([center.lat, center.lng], 13, {
           duration: 1.5, // Animation duration in seconds
           easeLinearity: 0.25,
         });
         previousCenterRef.current = center;
+        
+        // Reset the flag after animation completes
+        setTimeout(() => {
+          isProgrammaticMoveRef.current = false;
+        }, 1600); // Slightly longer than animation duration
       }
     }
   }, [center.lat, center.lng, isLoaded]);
+
+  // Set up map move event listener
+  useEffect(() => {
+    if (!mapInstanceRef.current || !isLoaded || !onMapMove) return;
+
+    const map = mapInstanceRef.current;
+    
+    const handleMoveEnd = () => {
+      // Don't trigger callback if this was a programmatic move
+      if (isProgrammaticMoveRef.current) {
+        return;
+      }
+
+      // Debounce the callback to avoid too many API calls
+      if (moveTimeoutRef.current) {
+        clearTimeout(moveTimeoutRef.current);
+      }
+      
+      moveTimeoutRef.current = setTimeout(() => {
+        const mapCenter = map.getCenter();
+        onMapMove({
+          lat: mapCenter.lat,
+          lng: mapCenter.lng,
+        });
+      }, 500); // Wait 500ms after user stops moving
+    };
+
+    map.on('moveend', handleMoveEnd);
+
+    return () => {
+      map.off('moveend', handleMoveEnd);
+      if (moveTimeoutRef.current) {
+        clearTimeout(moveTimeoutRef.current);
+      }
+    };
+  }, [isLoaded, onMapMove]);
 
   // Update markers when observations change
   useEffect(() => {
@@ -132,127 +168,24 @@ export function ObservationMap({
     });
     markersRef.current = [];
 
-    // Store observation to marker mapping
-    observationMapRef.current.clear();
-    originalPositionsRef.current.clear();
-
-    // Helper function to calculate distance between two lat/lng points (in meters)
-    const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
-      const R = 6371000; // Earth radius in meters
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLng = (lng2 - lng1) * Math.PI / 180;
-      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLng / 2) * Math.sin(dLng / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    };
-
-    // Helper function to animate marker position
-    const animateMarker = (marker: L.CircleMarker, targetLat: number, targetLng: number, duration: number = 300) => {
-      const startLat = marker.getLatLng().lat;
-      const startLng = marker.getLatLng().lng;
-      const startTime = Date.now();
-
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function (ease-out)
-        const eased = 1 - Math.pow(1 - progress, 3);
-        
-        const currentLat = startLat + (targetLat - startLat) * eased;
-        const currentLng = startLng + (targetLng - startLng) * eased;
-        
-        marker.setLatLng([currentLat, currentLng]);
-        
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      
-      requestAnimationFrame(animate);
-    };
-
-    // Helper function to spread out nearby markers
-    const spreadCluster = (hoveredMarker: L.CircleMarker, hoveredObs: Observation) => {
-      const CLUSTER_DISTANCE = 50; // meters - markers within this distance will spread
-      const SPREAD_DISTANCE = 15; // meters - how far to spread them
-      
-      const hoveredLat = hoveredObs.lat;
-      const hoveredLng = hoveredObs.lng;
-      
-      const nearbyMarkers: Array<{ marker: L.CircleMarker; obs: Observation; distance: number }> = [];
-      
-      // Find all nearby markers
-      markersRef.current.forEach((marker) => {
-        if (marker === hoveredMarker) return;
-        const obs = observationMapRef.current.get(marker);
-        if (!obs) return;
-        
-        const distance = getDistance(hoveredLat, hoveredLng, obs.lat, obs.lng);
-        if (distance < CLUSTER_DISTANCE) {
-          nearbyMarkers.push({ marker, obs, distance });
-        }
-      });
-
-      // If there are nearby markers, spread them out
-      if (nearbyMarkers.length > 0) {
-        const angleStep = (2 * Math.PI) / nearbyMarkers.length;
-        
-        nearbyMarkers.forEach((item, index) => {
-          const angle = index * angleStep;
-          // Calculate new position offset
-          const latOffset = (SPREAD_DISTANCE / 111000) * Math.cos(angle); // ~111km per degree latitude
-          const lngOffset = (SPREAD_DISTANCE / (111000 * Math.cos(hoveredLat * Math.PI / 180))) * Math.sin(angle);
-          
-          const originalPos = originalPositionsRef.current.get(item.obs.id);
-          if (originalPos) {
-            const newLat = hoveredLat + latOffset;
-            const newLng = hoveredLng + lngOffset;
-            
-            // Smoothly animate to new position
-            animateMarker(item.marker, newLat, newLng, 300);
-            spreadMarkersRef.current.add(item.marker);
-          }
-        });
-      }
-    };
-
-    // Helper function to return markers to original positions
-    const returnToOriginalPositions = () => {
-      spreadMarkersRef.current.forEach((marker) => {
-        const obs = observationMapRef.current.get(marker);
-        if (obs) {
-          const originalPos = originalPositionsRef.current.get(obs.id);
-          if (originalPos) {
-            animateMarker(marker, originalPos.lat, originalPos.lng, 300);
-          }
-        }
-      });
-      spreadMarkersRef.current.clear();
-    };
-
     // Add new markers for current observations
     observations.forEach((obs) => {
       const isFocusedSpecies = focusedSpeciesId !== null && focusedSpeciesId !== undefined && obs.speciesId === focusedSpeciesId;
       const opacity = isFocusedSpecies ? 1.0 : 0.2;
       const fillOpacity = isFocusedSpecies ? 0.7 : 0.2;
       
-      const originalLatLng = L.latLng(obs.lat, obs.lng);
-      originalPositionsRef.current.set(obs.id, originalLatLng);
+      // Get the iconic taxon from observation or look it up from species array
+      const obsTaxon = obs.iconicTaxon || species.find(s => s.id === obs.speciesId)?.iconicTaxon || 'unknown';
+      const taxonColor = ICONIC_TAXON_COLORS[obsTaxon as IconicTaxon] || ICONIC_TAXON_COLORS.unknown;
       
       const marker = L.circleMarker([obs.lat, obs.lng], {
         radius: isFocusedSpecies ? 8 : 6,
-        color: '#000000',
-        fillColor: '#000000',
+        color: taxonColor,
+        fillColor: taxonColor,
         fillOpacity: fillOpacity,
         opacity: opacity,
         weight: isFocusedSpecies ? 2 : 1,
       }).addTo(map);
-
-      // Store observation reference
-      observationMapRef.current.set(marker, obs);
 
       marker.bindPopup(`
         <div class="text-sm">
@@ -268,43 +201,73 @@ export function ObservationMap({
 
       // Handle hover events
       if (onObservationHover) {
-        marker.on('mouseover', (e) => {
+        marker.on('mouseover', () => {
           const latlng = marker.getLatLng();
           const containerPoint = map.latLngToContainerPoint(latlng);
+          const mapContainer = map.getContainer();
+          const mapWidth = mapContainer.offsetWidth;
+          const mapHeight = mapContainer.offsetHeight;
+          
           setHoveredObservation(obs);
           setHoverPosition({ x: containerPoint.x, y: containerPoint.y });
           onObservationHover(obs);
           
-          // Highlight marker
+          // Calculate tooltip position with boundary detection
+          const tooltipWidth = 320; // max-w-[320px]
+          const tooltipHeight = 200; // approximate height
+          const offset = 20;
+          
+          let left = containerPoint.x + offset;
+          let top = containerPoint.y;
+          
+          // Adjust if tooltip would go off right edge
+          if (left + tooltipWidth > mapWidth) {
+            left = containerPoint.x - tooltipWidth - offset;
+          }
+          
+          // Adjust if tooltip would go off left edge
+          if (left < 0) {
+            left = offset;
+          }
+          
+          // Adjust if tooltip would go off bottom edge
+          if (top + tooltipHeight / 2 > mapHeight) {
+            top = mapHeight - tooltipHeight / 2 - 10;
+          }
+          
+          // Adjust if tooltip would go off top edge
+          if (top - tooltipHeight / 2 < 0) {
+            top = tooltipHeight / 2 + 10;
+          }
+          
+          setTooltipPosition({ left, top });
+          
+          // Subtle highlight on hover - slightly increase opacity but keep same size
+          const isFocused = focusedSpeciesId !== null && focusedSpeciesId !== undefined && obs.speciesId === focusedSpeciesId;
           marker.setStyle({
-            radius: 12,
-            fillOpacity: 1,
-            opacity: 1,
-            color: '#000000',
-            fillColor: '#000000',
-            weight: 3,
+            radius: isFocused ? 8 : 6, // Keep original size
+            fillOpacity: isFocused ? 0.9 : 0.4, // Slightly brighter on hover
+            opacity: isFocused ? 1.0 : 0.4, // Slightly brighter on hover
+            color: taxonColor,
+            fillColor: taxonColor,
+            weight: isFocused ? 2 : 1, // Keep original weight
           });
-
-          // Spread nearby markers
-          spreadCluster(marker, obs);
         });
 
         marker.on('mouseout', () => {
           setHoveredObservation(null);
           setHoverPosition(null);
+          setTooltipPosition(null);
           onObservationHover(null);
           
-          // Return markers to original positions
-          returnToOriginalPositions();
-          
-          // Reset marker style
+          // Reset marker style to original
           const isFocused = focusedSpeciesId !== null && focusedSpeciesId !== undefined && obs.speciesId === focusedSpeciesId;
           marker.setStyle({
             radius: isFocused ? 8 : 6,
             fillOpacity: isFocused ? 0.7 : 0.2,
             opacity: isFocused ? 1.0 : 0.2,
-            color: '#000000',
-            fillColor: '#000000',
+            color: taxonColor,
+            fillColor: taxonColor,
             weight: isFocused ? 2 : 1,
           });
         });
@@ -327,7 +290,7 @@ export function ObservationMap({
       <div ref={mapRef} className="w-full h-full" />
       
       {/* Enhanced hover tooltip */}
-      {hoveredObservation && hoverPosition && (() => {
+      {hoveredObservation && tooltipPosition && (() => {
         const speciesData = species.find(s => s.id === hoveredObservation.speciesId);
         const emoji = speciesData ? (ICONIC_TAXON_EMOJI[speciesData.iconicTaxon as IconicTaxon] || '') : '';
         // Use species photo if available, otherwise fall back to observation photo
@@ -336,10 +299,10 @@ export function ObservationMap({
         return (
           <div
             ref={hoverCardRef}
-            className="absolute z-50 pointer-events-none"
+            className="absolute z-[100] pointer-events-none"
             style={{
-              left: `${hoverPosition.x + 20}px`,
-              top: `${hoverPosition.y}px`,
+              left: `${tooltipPosition.left}px`,
+              top: `${tooltipPosition.top}px`,
               transform: 'translateY(-50%)',
             }}
           >

@@ -28,6 +28,21 @@
   animation: slideInFromLeft 0.2s ease-out;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
 /* Map styling */
 .leaflet-container {
   background: #ffffff;

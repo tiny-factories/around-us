@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useGeolocation } from '@/hooks/useGeolocation';
-import { Species, Observation, IconicTaxon } from '@/lib/types';
+import { Species, Observation, IconicTaxon, Coordinates } from '@/lib/types';
 import { TitleCard } from '@/components/TitleCard';
 import { FiltersPanel } from '@/components/FiltersPanel';
 import { ChatInterface } from '@/components/ChatInterface';
@@ -34,18 +34,26 @@ export default function Home() {
   const [selectedSpecies, setSelectedSpecies] = useState<Species | null>(null);
   const [focusedSpeciesId, setFocusedSpeciesId] = useState<number | null>(null);
   const [hoveredObservation, setHoveredObservation] = useState<Observation | null>(null);
+  
+  // Track map center - starts with geolocation, updates when user moves map
+  const [mapCenter, setMapCenter] = useState<Coordinates | null>(null);
 
-  // Fetch species when location or month changes
+  // Fetch species when map center or month changes
   useEffect(() => {
+    // Use map center if available, otherwise fall back to geolocation coordinates
+    const center = mapCenter || coordinates;
+    
+    if (!center) return;
+
     async function fetchData() {
       setLoading(true);
       setError(null);
 
       try {
-        const lat = coordinates!.lat;
-        const lng = coordinates!.lng;
+        const lat = center.lat;
+        const lng = center.lng;
         const [speciesRes, obsRes] = await Promise.all([
-          fetch(`/api/species?lat=${lat}&lng=${lng}&month=${selectedMonth}&limit=100`),
+          fetch(`/api/species?lat=${lat}&lng=${lng}&month=${selectedMonth}&limit=200`),
           fetch(`/api/observations?lat=${lat}&lng=${lng}&radius=5&limit=200&month=${selectedMonth}`),
         ]);
 
@@ -65,7 +73,7 @@ export default function Home() {
     }
 
     fetchData();
-  }, [coordinates, selectedMonth]);
+  }, [mapCenter, coordinates, selectedMonth]);
 
   // Count species by taxon for filters
   const taxonCounts = useMemo(() => {
@@ -139,6 +147,10 @@ export default function Home() {
           }}
           onObservationHover={setHoveredObservation}
           hoveredObservationId={hoveredObservation?.id || null}
+          onMapMove={(center) => {
+            // Update map center when user moves the map
+            setMapCenter(center);
+          }}
         />
       </div>
 
@@ -155,7 +167,14 @@ export default function Home() {
       />
 
       {/* Chat interface - right side */}
-      <ChatInterface selectedSpecies={selectedSpecies} />
+      <ChatInterface 
+        selectedSpecies={selectedSpecies}
+        selectedTaxon={selectedTaxon}
+        selectedMonth={selectedMonth}
+        coordinates={mapCenter || coordinates}
+        onTaxonChange={setSelectedTaxon}
+        onMonthChange={setSelectedMonth}
+      />
 
       {/* Species detail panel - removed, using chat instead */}
     </main>
