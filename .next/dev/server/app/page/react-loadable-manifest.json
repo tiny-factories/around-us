@@ -1,0 +1,10 @@
+{
+  "[project]/src/components/ObservationMap.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ObservationMap.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_leaflet_dist_leaflet-src_b9494103.js",
+      "static/chunks/src_components_ObservationMap_tsx_77a9aff1._.js",
+      "static/chunks/src_components_ObservationMap_tsx_2a001d29._.js"
+    ]
+  }
+}

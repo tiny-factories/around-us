@@ -1,0 +1,324 @@
+[00:00:00.784] Server  LOG     ✓ Ready in 599ms
+[00:00:05.283] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:49.730] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:49.730] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:49.730] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:49.730] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:50.499] Server  LOG     ✓ Compiled in 223ms
+[00:00:51.008] Server  LOG     ✓ Compiled in 11ms
+[00:00:59.425] Server  LOG     ✓ Compiled in 47ms
+[00:01:00.292] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610531448/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:16.492] Server  LOG     ✓ Compiled in 12ms
+[00:01:16.550] Browser ERROR   The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+
+Previous: %s
+Incoming: %s useEffect [[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object], true, , (obs)=>{
+                        const found = species.find((s)=>s.id === obs.speciesId);
+                        if (found) setSelectedSpecies(found);
+                    }, function () { [native code] }] [[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object], , true, , (obs)=>{
+                        const found = species.find((s)=>s.id === obs.speciesId);
+                        if (found) setSelectedSpecies(found);
+                    }, function () { [native code] }]
+[00:01:18.439] Server  LOG     ✓ Compiled in 9ms
+[00:01:24.429] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:01:24.429] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:01:24.429] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:01:24.429] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:01:44.120] Server  LOG     ✓ Compiled in 30ms
+[00:01:44.223] Browser ERROR   ./src/components/SpeciesModal.tsx:314:1
+Parsing ecmascript source code failed
+  312 |     </div>
+  313 |   );
+> 314 | }
+      | ^
+  315 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:48.913] Server  LOG     ✓ Compiled in 15ms
+[00:01:49.015] Browser ERROR   ./src/components/SpeciesModal.tsx:314:1
+Parsing ecmascript source code failed
+  312 |     </div>
+  313 |   );
+> 314 | }
+      | ^
+  315 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:49.975] Server  LOG     ✓ Compiled in 15ms
+[00:01:50.077] Browser ERROR   ./src/components/SpeciesModal.tsx:314:1
+Parsing ecmascript source code failed
+  312 |     </div>
+  313 |   );
+> 314 | }
+      | ^
+  315 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:51.173] Server  LOG     ✓ Compiled in 10ms
+[00:01:51.275] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:51.811] Server  LOG     ✓ Compiled in 9ms
+[00:01:51.913] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:53.300] Server  LOG     ✓ Compiled in 15ms
+[00:01:53.402] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:01:55.072] Server  LOG     ✓ Compiled in 8ms
+[00:01:55.174] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:02:12.723] Server  ERROR   ⨯ ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+
+[00:02:12.936] Browser ERROR   uncaughtError: Error: ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+
+[00:02:13.080] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:02:13.080] Browser ERROR   ./src/components/SpeciesModal.tsx:313:1
+Parsing ecmascript source code failed
+  311 |     </div>
+  312 |   );
+> 313 | }
+      | ^
+  314 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:02:34.076] Browser ERROR   ./src/components/SpeciesModal.tsx:314:6
+Parsing ecmascript source code failed
+  312 |         </div>
+  313 |       </div>
+> 314 |     </div>
+      |      ^^^^^
+  315 |   );
+  316 | }
+  317 |
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/SpeciesModal.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/SpeciesModal.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[00:03:17.487] Server  LOG     ✓ Compiled in 52ms
+[00:03:17.835] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:53.112] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:04:53.112] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:04:53.112] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:04:53.112] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:05:13.912] Server  LOG     ✓ Compiled in 23ms
+[00:05:17.065] Server  LOG     ✓ Compiled in 14ms
+[00:05:17.908] Server  LOG     ✓ Compiled in 9ms
+[00:07:22.092] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:23.696] Server  LOG     ✓ Compiled in 14ms
+[00:08:31.855] Server  LOG     ✓ Compiled in 11ms
+[00:08:37.955] Server  LOG     ✓ Compiled in 11ms
+[00:08:40.323] Server  LOG     ✓ Compiled in 10ms
+[00:08:50.664] Server  LOG     ✓ Compiled in 10ms
+[00:08:50.716] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610542912/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:08:53.774] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610519261/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:08:55.273] Browser WARN    Image with src "https://static.inaturalist.org/photos/11888923/large.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:08:56.039] Server  LOG     ✓ Compiled in 10ms
+[00:09:04.558] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610307765/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:05.650] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610499198/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:06.680] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610548136/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:08.606] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610062140/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:09.485] Browser WARN    Image with src "https://static.inaturalist.org/photos/610514053/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:10.785] Browser WARN    Image with src "https://inaturalist-open-data.s3.amazonaws.com/photos/610474261/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:17.643] Browser WARN    Image with src "https://static.inaturalist.org/photos/610006235/medium.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:18.175] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:09:18.175] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:09:18.175] Browser ERROR   params are being enumerated. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:09:18.175] Browser ERROR   The keys of `searchParams` were accessed directly. `searchParams` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:09:32.394] Server  LOG     ✓ Compiled in 11ms
+[00:10:30.204] Server  LOG     ✓ Compiled in 10ms
+[00:10:49.133] Server  LOG     ✓ Compiled in 13ms
+[00:10:50.853] Server  LOG     ✓ Compiled in 45ms
+[00:11:03.482] Server  LOG     ✓ Compiled in 10ms
+[00:11:09.847] Server  LOG     ✓ Compiled in 40ms
+[00:11:18.637] Server  LOG     ✓ Compiled in 35ms
+[00:11:32.376] Server  LOG     ✓ Compiled in 25ms
+[00:11:32.536] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:32.823] Server  LOG     ✓ Compiled in 13ms
+[00:11:33.802] Server  LOG     ✓ Compiled in 10ms
+[00:11:34.419] Server  LOG     ✓ Compiled in 21ms
+[00:11:34.521] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:42.775] Server  LOG     ✓ Compiled in 9ms
+[00:12:29.318] Server  LOG     ✓ Compiled in 11ms
